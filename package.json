@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npx tsx server.ts",
+    "start": "npx tsx server.ts",
     "build": "vite build",
     "lint": "tsc --noEmit",
     "preview": "vite preview"
