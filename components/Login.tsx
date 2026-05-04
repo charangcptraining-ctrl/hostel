@@ -34,7 +34,8 @@ const Login: React.FC<LoginProps> = ({ onLogin, onNavigateToSignup, error: exter
     }
 
     try {
-      const user = await db.login({ username, password });
+      const loginResult = await db.login({ username, password });
+      const user = loginResult?.user ?? loginResult;
       if (user) {
         onLogin(user.role, user.id || user._id);
       } else {
