@@ -1468,13 +1468,8 @@ async function startServer() {
       appType: 'spa',
     });
     app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
   }
+  // Note: In production, frontend is served by Vercel, so no static serving needed here
 
   // Global Error Handler
   app.use((err: any, req: any, res: any, next: any) => {
