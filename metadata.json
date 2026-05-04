@@ -1,0 +1,7 @@
+{
+  "name": "Hostel Management Pro",
+  "description": "A multi-tenant SaaS platform for hostel and PG owners, staff, and residents with real-time analytics, automated billing, and complaint management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
