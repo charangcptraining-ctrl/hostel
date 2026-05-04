@@ -35,6 +35,32 @@ async function startServer() {
         serverSelectionTimeoutMS: 10000, // Increase timeout slightly
       });
       console.log('✅ Successfully connected to MongoDB Atlas');
+
+      const superAdminExists = await User.findOne({ role: UserRole.SUPERADMIN });
+      if (!superAdminExists) {
+        console.log('🔧 No SUPERADMIN found. Creating default superadmin user...');
+        await User.create({
+          name: 'System Administrator',
+          username: 'superadmin',
+          email: 'superadmin@hostelpro.com',
+          password: 'Admin@123',
+          role: UserRole.SUPERADMIN,
+        });
+        console.log('✅ Default superadmin created: superadmin / Admin@123');
+      }
+
+      const defaultOwnerExists = await User.findOne({ username: 'admin' });
+      if (!defaultOwnerExists) {
+        console.log('🔧 No default owner found. Creating admin owner account...');
+        await User.create({
+          name: 'Default Owner',
+          username: 'admin',
+          email: 'admin@hostelpro.com',
+          password: 'admin123',
+          role: UserRole.OWNER,
+        });
+        console.log('✅ Default owner created: admin / admin123');
+      }
     } catch (err: any) {
       console.error('❌ MongoDB connection error:', err.message);
       if (err.message.includes('MongooseServerSelectionError')) {
